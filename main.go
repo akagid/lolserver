@@ -15,6 +15,7 @@ func main() {
 
 		a := 1
 		b := 2
+		c := 3
 	})
 
 	http.ListenAndServe(":8081", nil)
