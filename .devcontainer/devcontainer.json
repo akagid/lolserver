@@ -7,7 +7,9 @@
 		"vscode": {
 			"extensions": [
 				"golang.go",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"GitHub.copilot",
+				"GitHub.copilot-chat"
 			]
 		}
 	}
