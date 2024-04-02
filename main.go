@@ -13,9 +13,7 @@ func main() {
 	http.HandleFunc("/piing", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "poong")
 
-		a := 1
-		b := 2
-		c := 3
+		d := 1
 	})
 
 	http.ListenAndServe(":8081", nil)
