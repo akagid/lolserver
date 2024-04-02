@@ -22,9 +22,18 @@ func main() {
 	})
 
 	server := &http.Server{
-		Addr:         ":8080",
-		ReadTimeout:  readTimeout,
-		WriteTimeout: writeTimeout,
+		Addr:              ":8080",
+		Handler:           http.DefaultServeMux,
+		ReadTimeout:       readTimeout,
+		ReadHeaderTimeout: 0,
+		WriteTimeout:      writeTimeout,
+		IdleTimeout:       0,
+		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
+		TLSConfig:         nil,
+		ConnState:         nil,
+		ErrorLog:          nil,
+		BaseContext:       nil,
+		ConnContext:       nil,
 	}
 
 	err := server.ListenAndServe()
