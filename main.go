@@ -22,18 +22,20 @@ func main() {
 	})
 
 	server := &http.Server{
-		Addr:              ":8080",
-		Handler:           http.DefaultServeMux,
-		ReadTimeout:       readTimeout,
-		ReadHeaderTimeout: 0,
-		WriteTimeout:      writeTimeout,
-		IdleTimeout:       0,
-		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
-		TLSConfig:         nil,
-		ConnState:         nil,
-		ErrorLog:          nil,
-		BaseContext:       nil,
-		ConnContext:       nil,
+		Addr:                         ":8080",
+		Handler:                      http.DefaultServeMux,
+		ReadTimeout:                  readTimeout,
+		ReadHeaderTimeout:            0,
+		WriteTimeout:                 writeTimeout,
+		IdleTimeout:                  0,
+		MaxHeaderBytes:               http.DefaultMaxHeaderBytes,
+		TLSConfig:                    nil,
+		ConnState:                    nil,
+		ErrorLog:                     nil,
+		BaseContext:                  nil,
+		ConnContext:                  nil,
+		DisableGeneralOptionsHandler: false,
+		TLSNextProto:                 nil,
 	}
 
 	err := server.ListenAndServe()
