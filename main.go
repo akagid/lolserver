@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func Add(a, b int) int {
@@ -15,7 +16,13 @@ func main() {
 		fmt.Fprintf(w, "pong")
 	})
 
-	err := http.ListenAndServe(":8080", nil)
+	server := &http.Server{
+		Addr:         ":8080",
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
