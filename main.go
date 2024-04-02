@@ -14,7 +14,5 @@ func main() {
 		fmt.Fprintf(w, "pong")
 	})
 
-	a := 1
-
 	http.ListenAndServe(":8081", nil)
 }
