@@ -7,6 +7,11 @@ import (
 	"time"
 )
 
+const (
+	readTimeout  = 5 * time.Second
+	writeTimeout = 10 * time.Second
+)
+
 func Add(a, b int) int {
 	return a + b
 }
@@ -18,8 +23,8 @@ func main() {
 
 	server := &http.Server{
 		Addr:         ":8080",
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		ReadTimeout:  readTimeout,
+		WriteTimeout: writeTimeout,
 	}
 
 	err := server.ListenAndServe()
