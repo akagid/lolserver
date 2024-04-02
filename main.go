@@ -10,11 +10,9 @@ func Add(a, b int) int {
 }
 
 func main() {
-	http.HandleFunc("/piing", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "poong")
-
-		e := 1
+	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "pong")
 	})
 
-	http.ListenAndServe(":8081", nil)
+	http.ListenAndServe(":8080", nil)
 }
