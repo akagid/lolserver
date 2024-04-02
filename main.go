@@ -1,3 +1,4 @@
+// Package main provides a simple HTTP server.
 package main
 
 import (
@@ -12,12 +13,13 @@ const (
 	writeTimeout = 10 * time.Second
 )
 
+// Add takes two integers and returns their sum.
 func Add(a, b int) int {
 	return a + b
 }
 
 func main() {
-	http.HandleFunc("/ping", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/ping", func(w http.ResponseWriter, _ *http.Request) {
 		fmt.Fprintf(w, "pong")
 	})
 
