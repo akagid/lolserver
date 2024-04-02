@@ -1,0 +1,20 @@
+name: reviewdog
+
+on:
+  pull_request:
+
+jobs:
+  golangci-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run golangci-lint
+        uses: reviewdog/action-golangci-lint@v2
+        with:
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
+          reporter: github-pr-review
+          fail_on_error: true
