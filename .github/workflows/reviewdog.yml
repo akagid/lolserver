@@ -1,15 +1,19 @@
 name: reviewdog
-on: [pull_request]
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
 jobs:
   golangci-lint:
-    name: runner / golangci-lint
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code into the Go module directory
+      - name: Run checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: golangci-lint
+
+      - name: Run golangci-lint
         uses: reviewdog/action-golangci-lint@v2
         with:
           golangci_lint_flags: "--enable-all --exclude-use-default=false"

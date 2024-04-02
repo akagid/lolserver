@@ -1,4 +1,4 @@
-name: go
+name: go test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
     types: [opened, reopened]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Run checkout
@@ -17,9 +17,5 @@ jobs:
         with:
           go-version: "1.22"
 
-      - name: Run go build
-        run: go build -v ./...
-
       - name: Run go test
         run: go test -v ./...
-
