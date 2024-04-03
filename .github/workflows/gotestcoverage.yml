@@ -17,13 +17,13 @@ jobs:
       - name: generate test coverage
         run: |
           go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
-          go tool cover -html=cover.out -o=cover.html
+          go tool cover -html=cover.out -o=./docs/cover.html
 
       - name: deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./docs
           publish_branch: gh-pages
 
       - name: check test coverage
