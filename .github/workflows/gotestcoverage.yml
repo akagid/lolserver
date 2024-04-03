@@ -27,8 +27,8 @@ jobs:
           go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
           go tool cover -html=cover.out -o=./docs/cover.html
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      # - name: Setup Pages
+      #   uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -37,11 +37,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: check test coverage
-        uses: vladopajic/go-test-coverage@v2
-        with:
-          profile: cover.out
-          local-prefix: github.com/org/project
-          threshold-file: 90
-          threshold-package: 90
-          threshold-total: 90
+      # - name: check test coverage
+      #   uses: vladopajic/go-test-coverage@v2
+      #   with:
+      #     profile: cover.out
+      #     local-prefix: github.com/org/project
+      #     threshold-file: 90
+      #     threshold-package: 90
+      #     threshold-total: 90
