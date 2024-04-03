@@ -19,11 +19,12 @@ jobs:
           go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
           go tool cover -html=cover.out -o=cover.html
 
-      - name: upload coverage report
-        uses: actions/upload-artifact@v4
+      - name: deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: coverage-report
-          path: cover.html
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
 
       - name: check test coverage
         uses: vladopajic/go-test-coverage@v2
