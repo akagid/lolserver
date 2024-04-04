@@ -1,9 +1,7 @@
-name: deploy
+name: deploy-coverage
 
 on:
   push:
-  pull_request:
-    types: [opened, reopened]
 
 jobs:
   build:
@@ -15,13 +13,13 @@ jobs:
           go-version: "1.22"
 
       - run: |
-          go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
-          go tool cover -html=cover.out -o=./coverage/cover.html
+          go test ./... -coverprofile=./coverage.out -covermode=atomic -coverpkg=./...
+          go tool cover -html=coverage.out -o=./coverage/coverage.html
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: coverage
+          path: coverage/coverage.html
 
   deploy:
     permissions:
@@ -36,17 +34,3 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v4
         id: deployment
-
-      - name: Comment PR
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            const issue_number = context.payload.pull_request.number;
-            const body = 'Coverage report is available [here](https://akagid.github.io/lolserver/cover).';
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue_number,
-              body: body
-            });
