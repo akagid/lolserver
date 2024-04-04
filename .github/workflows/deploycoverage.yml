@@ -36,3 +36,17 @@ jobs:
     steps:
       - uses: actions/deploy-pages@v4
         id: deployment
+
+      - name: Comment PR
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const issue_number = context.payload.pull_request.number;
+            const body = 'Coverage report is available [here](https://akagid.github.io/lolserver/cover).';
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: body
+            });
