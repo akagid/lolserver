@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+const (
+	TimeoutDuration = 10 * time.Second
+)
+
 func helloHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Fprint(w, "Hello, World!")
 }
@@ -16,8 +20,8 @@ func main() {
 
 	server := &http.Server{
 		Addr:         ":8080",
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
+		ReadTimeout:  TimeoutDuration,
+		WriteTimeout: TimeoutDuration,
 	}
 
 	err := server.ListenAndServe()
