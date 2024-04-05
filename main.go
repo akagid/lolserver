@@ -38,6 +38,4 @@ func main() {
 		DisableGeneralOptionsHandler: false,
 		TLSNextProto:                 nil,
 	}
-
-	server.ListenAndServe()
 }
