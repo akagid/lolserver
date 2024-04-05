@@ -8,6 +8,6 @@ WORKDIR /app
 # RUN go build -trimpath -ldflags="-s -w" -o app .
 
 RUN go install github.com/cosmtrek/air@latest
-Run go install -v github.com/go-delve/delve/cmd/dlv@latest
+RUN go install -v github.com/go-delve/delve/cmd/dlv@latest
 
 # CMD ["app"]
