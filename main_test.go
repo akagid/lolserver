@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 )
 
@@ -53,5 +54,18 @@ func TestNewServer(t *testing.T) {
 
 	if server.IdleTimeout != idleTimeout {
 		t.Errorf("server.IdleTimeout = %v; want %v", server.IdleTimeout, idleTimeout)
+	}
+}
+
+func TestSetupRoutes(t *testing.T) {
+	setupRoutes()
+
+	// Get the default ServeMux
+	mux := http.DefaultServeMux
+
+	// Check if "/" route is registered
+	_, pattern := mux.Handler(&http.Request{URL: &url.URL{Path: "/"}})
+	if pattern != "/" {
+		t.Errorf("Expected route to be '/', got %s", pattern)
 	}
 }
