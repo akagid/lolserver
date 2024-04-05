@@ -31,13 +31,16 @@ jobs:
         with:
           go-version-file: go.mod
 
-      - name: Test
-        run: go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
+      - name: Test with coverage
+        run: go test ./... -coverprofile=./coverage.out -covermode=atomic -coverpkg=./...
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
 
       - name: Coverage
         uses: vladopajic/go-test-coverage@v2
         with:
-          profile: cover.out
+          profile: coverage.out
           local-prefix: github.com/org/project
           threshold-file: 80
           threshold-package: 80
