@@ -1,6 +1,0 @@
-mode: atomic
-github.com/akagid/lolserver/main.go:17.24,19.2 1 1
-github.com/akagid/lolserver/main.go:21.13,22.72 1 0
-github.com/akagid/lolserver/main.go:22.72,24.3 1 0
-github.com/akagid/lolserver/main.go:26.2,44.16 3 0
-github.com/akagid/lolserver/main.go:44.16,46.3 1 0
