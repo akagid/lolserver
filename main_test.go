@@ -1,13 +1,14 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 )
 
 func TestHelloHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/", nil)
+	req, err := http.NewRequestWithContext(context.Background(), "GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
