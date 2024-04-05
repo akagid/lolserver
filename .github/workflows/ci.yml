@@ -15,7 +15,7 @@ jobs:
       - name: Run golangci-lint with reviewdog
         uses: reviewdog/action-golangci-lint@v2
         with:
-          # golangci_lint_flags: "--enable-all --exclude-use-default=false"
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
           reporter: github-pr-review
           fail_on_error: true
 
