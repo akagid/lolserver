@@ -22,13 +22,20 @@ func main() {
 	http.HandleFunc("/", helloHandler)
 
 	server := &http.Server{
-		Addr:              ":8080",
-		Handler:           nil,
-		ReadTimeout:       readTimeout,
-		WriteTimeout:      writeTimeout,
-		ReadHeaderTimeout: readHeaderTimeout,
-		IdleTimeout:       idleTimeout,
-		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
+		Addr:                         ":8080",
+		Handler:                      nil,
+		DisableGeneralOptionsHandler: false,
+		TLSConfig:                    nil,
+		ReadTimeout:                  readTimeout,
+		ReadHeaderTimeout:            readHeaderTimeout,
+		WriteTimeout:                 writeTimeout,
+		IdleTimeout:                  idleTimeout,
+		MaxHeaderBytes:               0,
+		TLSNextProto:                 nil,
+		ConnState:                    nil,
+		ErrorLog:                     nil,
+		BaseContext:                  nil,
+		ConnContext:                  nil,
 	}
 
 	err := server.ListenAndServe()
