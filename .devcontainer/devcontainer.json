@@ -6,12 +6,12 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"golang.go",
-				"redhat.vscode-yaml",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
 				"MS-CEINTL.vscode-language-pack-ja",
-				"github.vscode-github-actions"
+				"github.vscode-github-actions",
+				"golang.go",
+				"redhat.vscode-yaml"
 			]
 		}
 	}
