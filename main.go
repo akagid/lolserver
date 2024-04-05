@@ -4,14 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
-)
-
-const (
-	readTimeout       = 5 * time.Second
-	writeTimeout      = 10 * time.Second
-	readHeaderTimeout = 5 * time.Second
-	idleTimeout       = 60 * time.Second
 )
 
 func helloHandler(w http.ResponseWriter, _ *http.Request) {
@@ -28,11 +20,18 @@ func setupRoutes() {
 	http.HandleFunc("/", helloHandler)
 }
 
-func main() {
+func run() error {
 	setupRoutes()
 
 	err := newServer().ListenAndServe()
 	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func main() {
+	if err := run(); err != nil {
 		log.Fatalf("Could not start server: %s", err.Error())
 	}
 }
