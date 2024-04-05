@@ -10,7 +10,8 @@
 				"redhat.vscode-yaml",
 				"GitHub.copilot",
 				"GitHub.copilot-chat",
-				"MS-CEINTL.vscode-language-pack-ja"
+				"MS-CEINTL.vscode-language-pack-ja",
+				"github.vscode-github-actions"
 			]
 		}
 	}
