@@ -18,10 +18,8 @@ func helloHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Fprint(w, "Hello, World!")
 }
 
-func main() {
-	http.HandleFunc("/", helloHandler)
-
-	server := &http.Server{
+func newServer() *http.Server {
+	return &http.Server{
 		Addr:                         ":8080",
 		Handler:                      nil,
 		DisableGeneralOptionsHandler: false,
@@ -30,15 +28,19 @@ func main() {
 		ReadHeaderTimeout:            readHeaderTimeout,
 		WriteTimeout:                 writeTimeout,
 		IdleTimeout:                  idleTimeout,
-		MaxHeaderBytes:               0,
+		MaxHeaderBytes:               http.DefaultMaxHeaderBytes,
 		TLSNextProto:                 nil,
 		ConnState:                    nil,
 		ErrorLog:                     nil,
 		BaseContext:                  nil,
 		ConnContext:                  nil,
 	}
+}
 
-	err := server.ListenAndServe()
+func main() {
+	http.HandleFunc("/", helloHandler)
+
+	err := newServer().ListenAndServe()
 	if err != nil {
 		log.Fatalf("Could not start server: %s", err.Error())
 	}
