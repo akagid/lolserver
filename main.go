@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -14,7 +15,7 @@ const (
 
 // Add takes two integers and returns their sum.
 func Add(a, b int) int {
-	return a + b
+	return a + b + 1
 }
 
 func main() {
@@ -37,5 +38,10 @@ func main() {
 		ConnContext:                  nil,
 		DisableGeneralOptionsHandler: false,
 		TLSNextProto:                 nil,
+	}
+
+	err := server.ListenAndServe()
+	if err != nil {
+		log.Fatalf("Failed to start server: %v", err)
 	}
 }
