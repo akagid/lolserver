@@ -20,20 +20,7 @@ func helloHandler(w http.ResponseWriter, _ *http.Request) {
 
 func newServer() *http.Server {
 	return &http.Server{
-		Addr:                         ":8080",
-		Handler:                      nil,
-		DisableGeneralOptionsHandler: false,
-		TLSConfig:                    nil,
-		ReadTimeout:                  readTimeout,
-		ReadHeaderTimeout:            readHeaderTimeout,
-		WriteTimeout:                 writeTimeout,
-		IdleTimeout:                  idleTimeout,
-		MaxHeaderBytes:               http.DefaultMaxHeaderBytes,
-		TLSNextProto:                 nil,
-		ConnState:                    nil,
-		ErrorLog:                     nil,
-		BaseContext:                  nil,
-		ConnContext:                  nil,
+		Addr: ":8080",
 	}
 }
 
