@@ -32,12 +32,9 @@ jobs:
           go-version-file: go.mod
 
       - name: Test
-        run: go test -v ./...
-
-      - name: generate test coverage
         run: go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
 
-      - name: go-test-coverage
+      - name: Coverage
         uses: vladopajic/go-test-coverage@v2
         with:
           profile: cover.out
