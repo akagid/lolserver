@@ -58,6 +58,8 @@ func TestNewServer(t *testing.T) {
 }
 
 func TestSetupRoutes(t *testing.T) {
+	t.Parallel()
+
 	setupRoutes()
 
 	// Get the default ServeMux
