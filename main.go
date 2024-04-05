@@ -37,8 +37,12 @@ func newServer() *http.Server {
 	}
 }
 
-func main() {
+func setupRoutes() {
 	http.HandleFunc("/", helloHandler)
+}
+
+func main() {
+	setupRoutes()
 
 	err := newServer().ListenAndServe()
 	if err != nil {
