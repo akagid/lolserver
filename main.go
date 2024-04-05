@@ -39,8 +39,5 @@ func main() {
 		TLSNextProto:                 nil,
 	}
 
-	err := server.ListenAndServe()
-	// if err != nil {
-	// 	log.Fatalf("Failed to start server: %v", err)
-	// }
+	server.ListenAndServe()
 }
