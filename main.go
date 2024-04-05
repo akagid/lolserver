@@ -19,8 +19,8 @@ func Add(a, b int) int {
 }
 
 func main() {
-	http.HandleFunc("/ping", func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprintf(w, "pong")
+	http.HandleFunc("/piing", func(w http.ResponseWriter, _ *http.Request) {
+		fmt.Fprintf(w, "poong")
 	})
 
 	server := &http.Server{
