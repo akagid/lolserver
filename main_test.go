@@ -10,7 +10,7 @@ import (
 func TestHelloHandler(t *testing.T) {
 	t.Parallel()
 
-	req, err := http.NewRequestWithContext(context.Background(), "GET", "/", nil)
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
