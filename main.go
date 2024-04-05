@@ -3,7 +3,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 )
@@ -41,7 +40,7 @@ func main() {
 	}
 
 	err := server.ListenAndServe()
-	if err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-	}
+	// if err != nil {
+	// 	log.Fatalf("Failed to start server: %v", err)
+	// }
 }
