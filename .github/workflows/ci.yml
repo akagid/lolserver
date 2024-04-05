@@ -17,6 +17,7 @@ jobs:
           fail_on_error: true
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
