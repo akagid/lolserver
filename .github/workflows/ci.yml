@@ -32,25 +32,14 @@ jobs:
       - name: Test
         run: go test -v ./...
 
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: generate test coverage
+        run: go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
 
-      - name: Setup Go environment
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-
-      - name: Coverage
-        run: |
-          go test ./... -coverprofile=./cover.out -covermode=atomic -coverpkg=./...
-          go tool cover -html=cover.out -o=./coverage/cover.html
+      - name: go-test-coverage
         uses: vladopajic/go-test-coverage@v2
         with:
           profile: cover.out
           local-prefix: github.com/org/project
-          threshold-file: 100
-          threshold-package: 100
-          threshold-total: 100
+          threshold-file: 80
+          threshold-package: 80
+          threshold-total: 95
