@@ -19,9 +19,13 @@ func main() {
 	http.HandleFunc("/", helloHandler)
 
 	server := &http.Server{
-		Addr:         ":8080",
-		ReadTimeout:  TimeoutDuration,
-		WriteTimeout: TimeoutDuration,
+		Addr:              ":8080",
+		Handler:           nil,
+		ReadTimeout:       TimeoutDuration,
+		WriteTimeout:      TimeoutDuration,
+		ReadHeaderTimeout: 5 * time.Second,
+		IdleTimeout:       60 * time.Second,
+		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
 	}
 
 	err := server.ListenAndServe()
