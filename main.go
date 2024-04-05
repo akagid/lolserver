@@ -8,7 +8,10 @@ import (
 )
 
 const (
-	TimeoutDuration = 10 * time.Second
+	ReadTimeout       = 5 * time.Second
+	WriteTimeout      = 10 * time.Second
+	ReadHeaderTimeout = 5 * time.Second
+	IdleTimeout       = 60 * time.Second
 )
 
 func helloHandler(w http.ResponseWriter, _ *http.Request) {
@@ -21,10 +24,10 @@ func main() {
 	server := &http.Server{
 		Addr:              ":8080",
 		Handler:           nil,
-		ReadTimeout:       TimeoutDuration,
-		WriteTimeout:      TimeoutDuration,
-		ReadHeaderTimeout: 5 * time.Second,
-		IdleTimeout:       60 * time.Second,
+		ReadTimeout:       ReadTimeout,
+		WriteTimeout:      WriteTimeout,
+		ReadHeaderTimeout: ReadHeaderTimeout,
+		IdleTimeout:       IdleTimeout,
 		MaxHeaderBytes:    http.DefaultMaxHeaderBytes,
 	}
 
