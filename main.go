@@ -25,7 +25,7 @@ func run() error {
 
 	err := newServer().ListenAndServe()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to start server: %w", err)
 	}
 	return nil
 }
