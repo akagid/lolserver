@@ -1,61 +1,24 @@
 package main
 
 import (
-	"context"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestHelloHandler(t *testing.T) {
-	t.Parallel()
+func TestPingRoute(t *testing.T) {
+	router := setupRouter()
 
-	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "/", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/ping", nil)
+	router.ServeHTTP(w, req)
 
-	recorder := httptest.NewRecorder()
-	handler := http.HandlerFunc(helloHandler)
-
-	handler.ServeHTTP(recorder, req)
-
-	if status := recorder.Code; status != http.StatusOK {
-		t.Errorf("handler returned wrong status code: got %v want %v", status, http.StatusOK)
-	}
-
-	expected := "Hello, World!"
-	if recorder.Body.String() != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", recorder.Body.String(), expected)
-	}
+	assert.Equal(t, 200, w.Code)
+	assert.Equal(t, "pong", w.Body.String())
 }
 
-func TestNewServer(t *testing.T) {
-	t.Parallel()
-
-	server := newServer()
-
-	if server.Addr != ":8080" {
-		t.Errorf("Expected server address to be ':8080', got %s", server.Addr)
-	}
-
-	if server.ReadHeaderTimeout != readHeaderTimeout {
-		t.Errorf("Expected ReadHeaderTimeout to be %v, got %v", readHeaderTimeout, server.ReadHeaderTimeout)
-	}
-}
-
-func TestSetupRoutes(t *testing.T) {
-	t.Parallel()
-
-	setupRoutes()
-
-	// Get the default ServeMux
-	mux := http.DefaultServeMux
-
-	// Check if "/" route is registered
-	_, pattern := mux.Handler(&http.Request{URL: &url.URL{Path: "/"}})
-	if pattern != "/" {
-		t.Errorf("Expected route to be '/', got %s", pattern)
-	}
+func TestMain(t *testing.T) {
+	go main()
 }
