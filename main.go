@@ -1,9 +1,15 @@
+// main package
 package main
 
 import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
+)
+
+const (
+	readHeaderTimeout = 5 * time.Second
 )
 
 func helloHandler(w http.ResponseWriter, _ *http.Request) {
@@ -12,7 +18,8 @@ func helloHandler(w http.ResponseWriter, _ *http.Request) {
 
 func newServer() *http.Server {
 	return &http.Server{
-		Addr: ":8080",
+		Addr:              ":8080",
+		ReadHeaderTimeout: readHeaderTimeout,
 	}
 }
 
