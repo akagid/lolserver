@@ -35,8 +35,13 @@ func TestNewServer(t *testing.T) {
 	t.Parallel()
 
 	server := newServer()
+
 	if server.Addr != ":8080" {
-		t.Errorf("server.Addr = %s; want :8080", server.Addr)
+		t.Errorf("Expected server address to be ':8080', got %s", server.Addr)
+	}
+
+	if server.ReadHeaderTimeout != readHeaderTimeout {
+		t.Errorf("Expected ReadHeaderTimeout to be %v, got %v", readHeaderTimeout, server.ReadHeaderTimeout)
 	}
 }
 
