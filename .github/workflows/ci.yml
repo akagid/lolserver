@@ -15,7 +15,7 @@ jobs:
       - name: Run golangci-lint with reviewdog
         uses: reviewdog/action-golangci-lint@v2
         with:
-          golangci_lint_flags: "--enable-all --disable=exhaustruct --exclude-use-default=false"
+          golangci_lint_flags: "--enable-all --exclude-use-default=false"
           reporter: github-pr-review
           fail_on_error: true
 
@@ -44,7 +44,7 @@ jobs:
         with:
           path: coverage
 
-  deploy-github-pages:
+  deploy-test-coverage:
     needs: test
     runs-on: ubuntu-latest
     permissions:
@@ -58,8 +58,8 @@ jobs:
         uses: actions/deploy-pages@v4
         id: deployment
 
-  test-coverage:
-    needs: deploy-github-pages
+  check-test-coverage:
+    needs: deploy-test-coverage
     runs-on: ubuntu-latest
     steps:
       - name: go-test-coverage
