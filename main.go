@@ -5,6 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
+)
+
+const (
+	readHeaderTimeout = 5 * time.Second
 )
 
 func helloHandler(w http.ResponseWriter, _ *http.Request) {
