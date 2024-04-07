@@ -18,8 +18,8 @@ func setupRouter() *gin.Engine {
 
 func main() {
 	r := setupRouter()
-	err := r.Run(":8080")
-	if err != nil {
+
+	if err := r.Run(":8080"); err != nil {
 		log.Fatalf("Failed to run server: %v", err)
 	}
 }
