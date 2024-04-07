@@ -72,6 +72,9 @@ jobs:
         with:
           name: coverage
 
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - name: Checkout
         uses: actions/checkout@v4
   
