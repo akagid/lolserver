@@ -1,45 +1,25 @@
-// main package
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
-const (
-	readHeaderTimeout = 5 * time.Second
-)
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(http.StatusOK, "pong")
+	})
 
-func helloHandler(w http.ResponseWriter, _ *http.Request) {
-	fmt.Fprint(w, "Hello, World!")
-}
-
-func newServer() *http.Server {
-	return &http.Server{
-		Addr:              ":8080",
-		ReadHeaderTimeout: readHeaderTimeout,
-	}
-}
-
-func setupRoutes() {
-	http.HandleFunc("/", helloHandler)
-}
-
-func run() error {
-	setupRoutes()
-
-	err := newServer().ListenAndServe()
-	if err != nil {
-		return fmt.Errorf("failed to start server: %w", err)
-	}
-
-	return nil
+	return r
 }
 
 func main() {
-	if err := run(); err != nil {
-		log.Fatalf("Could not start server: %s", err.Error())
+	r := setupRouter()
+
+	if err := r.Run(":8080"); err != nil {
+		log.Fatalf("Failed to run server: %v", err)
 	}
 }

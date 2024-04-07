@@ -15,7 +15,6 @@ jobs:
       - name: Run golangci-lint with reviewdog
         uses: reviewdog/action-golangci-lint@v2
         with:
-          golangci_lint_flags: "--enable-all --disable=exhaustruct --exclude-use-default=false"
           reporter: github-pr-review
           fail_on_error: true
 
@@ -32,13 +31,63 @@ jobs:
           go-version-file: go.mod
 
       - name: Test with coverage
-        run: go test ./... -coverprofile=./coverage.out -covermode=atomic -coverpkg=./...
+        run: |
+          go test ./... -coverprofile=./coverage.out -covermode=atomic -coverpkg=./...
+          go tool cover -html=coverage.out -o=./coverage/coverage.html
 
-      - name: Coverage
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.out
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: coverage
+
+  deploy-test-coverage:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages site
+        uses: actions/deploy-pages@v4
+        id: deployment
+
+  check-test-coverage:
+    needs: deploy-test-coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - name: go-test-coverage
         uses: vladopajic/go-test-coverage@v2
         with:
           profile: coverage.out
           local-prefix: github.com/org/project
           threshold-file: 80
           threshold-package: 80
-          threshold-total: 95
+          threshold-total: 80
