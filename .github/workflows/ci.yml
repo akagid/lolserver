@@ -72,6 +72,14 @@ jobs:
         with:
           name: coverage
 
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Setup Go environment
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
       - name: go-test-coverage
         uses: vladopajic/go-test-coverage@v2
         with:
