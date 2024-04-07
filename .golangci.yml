@@ -1,0 +1,8 @@
+linters:
+  enable-all: true
+  disable:
+    - depguard
+    - exhaustruct
+
+issues:
+  exclude-use-default: true
