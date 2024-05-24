@@ -7,8 +7,6 @@
 		"vscode": {
 			"extensions": [
 				"DavidAnson.vscode-markdownlint",
-				"GitHub.copilot",
-				"GitHub.copilot-chat",
 				"MS-CEINTL.vscode-language-pack-ja",
 				"github.vscode-github-actions",
 				"golang.go",
