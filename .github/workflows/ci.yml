@@ -88,6 +88,6 @@ jobs:
         with:
           profile: coverage.out
           local-prefix: github.com/org/project
-          threshold-file: 80
-          threshold-package: 80
-          threshold-total: 80
+          threshold-file: 100
+          threshold-package: 100
+          threshold-total: 100
