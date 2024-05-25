@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -8,18 +9,25 @@ import (
 )
 
 func setupRouter() *gin.Engine {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.String(http.StatusOK, "pong")
+	router := gin.Default()
+	router.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
 
-	return r
+	return router
+}
+
+func runServer(addr string) error {
+	router := setupRouter()
+	if err := router.Run(addr); err != nil {
+		return fmt.Errorf("%w", err)
+	}
+
+	return nil
 }
 
 func main() {
-	r := setupRouter()
-
-	if err := r.Run(":8080"); err != nil {
-		log.Fatalf("Failed to run server: %v", err)
+	if err := runServer(":8080"); err != nil {
+		log.Fatalln(err)
 	}
 }

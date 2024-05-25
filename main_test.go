@@ -14,16 +14,23 @@ func TestPingRoute(t *testing.T) {
 
 	router := setupRouter()
 
-	w := httptest.NewRecorder()
-	req, _ := http.NewRequestWithContext(context.Background(), http.MethodGet, "/ping", nil)
-	router.ServeHTTP(w, req)
+	// テスト用のHTTPリクエストを作成
+	request, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "/ping", nil)
+	if err != nil {
+		t.Fatalf("Could not create request: %v", err)
+	}
 
-	assert.Equal(t, 200, w.Code)
-	assert.Equal(t, "pong", w.Body.String())
-}
+	// HTTPレスポンスを記録するためのレコーダーを作成
+	// httptest.NewRecorder を使用することで実際のネットワークI/Oを省略し、リクエストとレスポンスをメモリ内でエミュレート可能
+	recorder := httptest.NewRecorder()
 
-func TestMain(t *testing.T) {
-	t.Parallel()
+	// request の内容をリクエストし、レスポンスを recorder に記録
+	router.ServeHTTP(recorder, request)
 
-	go main()
+	// ステータスコードのチェック
+	assert.Equal(t, http.StatusOK, recorder.Code)
+
+	// レスポンスボディのJSONチェック
+	expected := `{"message":"pong"}`
+	assert.JSONEq(t, expected, recorder.Body.String())
 }
