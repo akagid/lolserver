@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -15,16 +14,23 @@ func TestPingRoute(t *testing.T) {
 
 	router := setupRouter()
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+	// テスト用のHTTPリクエストを作成
+	request, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "/ping", nil)
+	if err != nil {
+		t.Fatalf("Could not create request: %v", err)
+	}
 
-	req, _ := http.NewRequestWithContext(ctx, http.MethodGet, "/ping", nil)
-
+	// HTTPレスポンスを記録するためのレコーダーを作成
+	// httptest.NewRecorder を使用することで実際のネットワークI/Oを省略し、リクエストとレスポンスをメモリ内でエミュレート可能
 	recorder := httptest.NewRecorder()
-	router.ServeHTTP(recorder, req)
 
+	// request の内容をリクエストし、レスポンスを recorder に記録
+	router.ServeHTTP(recorder, request)
+
+	// ステータスコードのチェック
 	assert.Equal(t, http.StatusOK, recorder.Code)
 
-	expectedBody := `{"message":"pong"}`
-	assert.JSONEq(t, expectedBody, recorder.Body.String())
+	// レスポンスボディのJSONチェック
+	expected := `{"message":"pong"}`
+	assert.JSONEq(t, expected, recorder.Body.String())
 }
